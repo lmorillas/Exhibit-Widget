@@ -1,28 +1,28 @@
-<noinclude>Widget for test and visualize Simile Exhibit in a MW page
+<noinclude>widget to test and visualize Simile Exhibit in a MW page Inspired by Exhibit.autocreate() at https://github.com/simile-widgets/exhibit/blob/master/scripted/src/scripts/exhibit.js and old: http://code.google.com/p/simile-widgets/source/browse/exhibit/trunk/src/webapp/api/scripts/create.js?r=2251 Work in process ... ==Params== ;url_json:url with the json for the exhibit
+</noinclude>
+<includeonly>
+    <script type="text/javascript">
+    /*<![CDATA[*/
+    $.getScript('http://api.simile-widgets.org/exhibit/HEAD/exhibit-api.js?autoCreate=false');
 
-Inspired by Exhibit.autocreate() at https://github.com/simile-widgets/exhibit/blob/master/scripted/src/scripts/exhibit.js and old: http://code.google.com/p/simile-widgets/source/browse/exhibit/trunk/src/webapp/api/scripts/create.js?r=2251
+    $(document).bind("scriptsLoaded.exhibit", function() {
+        window.database = Exhibit.Database.create();
+    });
 
-Work in process ...
-</noinclude><includeonly>
-<script type="text/javascript">/*<![CDATA[*/
-$.getScript('http://api.simile-widgets.org/exhibit/HEAD/exhibit-api.js?autoCreate=false');
+    $(document).bind("staticComponentsRegistered.exhibit", function() {
+        <!--{foreach from=$url_json item=_url}-->
+        Exhibit.Importer.getImporter("application/json").load("<!--{$_url}-->", window.database);
+        <!--{/foreach}-->
+        Exhibit.jQuery(document.body).trigger("dataload.exhibit");
+    });
 
-var url_json = "http://beta.programaseducativosaragon.es/index.php?title=Nobelists&action=raw";  /* for testing*/
-
-$(document).bind("scriptsLoaded.exhibit", function() {
-    window.database = Exhibit.Database.create();
-});
-
-$(document).bind("staticComponentsRegistered.exhibit", function() {
-    Exhibit.Importer.getImporter("application/json").load(url_json, window.database);
-    Exhibit.jQuery(document.body).trigger("dataload.exhibit");
-});
-
-$(document).bind("dataload.exhibit", function() {
-    Exhibit.create = function(database) {
-        return new Exhibit._Impl(database);
-    };
-    window.exhibit = Exhibit.create();
-    window.exhibit.configureFromDOM();
-});
-/*]]>*/</script></includeonly>
+    $(document).bind("dataload.exhibit", function() {
+        Exhibit.create = function(database) {
+            return new Exhibit._Impl(database);
+        };
+        window.exhibit = Exhibit.create();
+        window.exhibit.configureFromDOM();
+    });
+    /*]]>*/
+    </script>
+</includeonly>
