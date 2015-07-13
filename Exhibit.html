@@ -42,6 +42,14 @@ Work in process ...
         window.exhibit = Exhibit.create();
         window.exhibit.configureFromDOM();
     });
+
+    $(document).bind("exhibitConfigured.exhibit", function(){
+        /* example of visual layer */
+        $("input").addClass("form-control");
+        $('div#premiado').children('div').children('span').prepend('<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>');
+        $('div.exhibit-mapView-map').addClass('img-rounded');
+        $('div.exhibit-facet-body').addClass('img-rounded');
+    });
     /*]]>*/
     </script>
 </includeonly>
