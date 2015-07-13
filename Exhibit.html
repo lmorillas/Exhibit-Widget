@@ -1,20 +1,39 @@
-<noinclude>widget to test and visualize Simile Exhibit in a MW page Inspired by Exhibit.autocreate() at https://github.com/simile-widgets/exhibit/blob/master/scripted/src/scripts/exhibit.js and old: http://code.google.com/p/simile-widgets/source/browse/exhibit/trunk/src/webapp/api/scripts/create.js?r=2251 Work in process ... ==Params== ;url_json:url with the json for the exhibit
+<noinclude>widget to test and visualize Simile Exhibit in a MW page
+
+Inspired by Exhibit.autocreate() at https://github.com/simile-widgets/exhibit/blob/master/scripted/src/scripts/exhibit.js and old: http://code.google.com/p/simile-widgets/source/browse/exhibit/trunk/src/webapp/api/scripts/create.js?r=2251
+
+Work in process ...
+
+==Params==
+;url_data:url with the json for the exhibit
 </noinclude>
 <includeonly>
     <script type="text/javascript">
     /*<![CDATA[*/
     $.getScript('http://api.simile-widgets.org/exhibit/HEAD/exhibit-api.js?autoCreate=false');
 
+    if ( $( "div[data-ex-view-class='Map']" ).length > 0 ) {
+        var Exhibit_MapExtension_urlPrefix = "http://api.simile-widgets.org/exhibit/current/extensions/map/";
+        $.getScript(Exhibit_MapExtension_urlPrefix + 'map-extension.js');
+    }
+
     $(document).bind("scriptsLoaded.exhibit", function() {
         window.database = Exhibit.Database.create();
     });
 
     $(document).bind("staticComponentsRegistered.exhibit", function() {
-        <!--{foreach from=$url_json item=_url}-->
-        Exhibit.Importer.getImporter("application/json").load("<!--{$_url}-->", window.database);
+        <!--{foreach from=$url_data item=_url}-->
+        if ( "<!--{$_url}-->".search("csv") > -1 ){
+            Exhibit.Importer.getImporter("text/csv").load("<!--{$_url}-->", window.database);
+        }
+        else {
+            Exhibit.Importer.getImporter("application/json").load("<!--{$_url}-->", window.database);
+        }
         <!--{/foreach}-->
         Exhibit.jQuery(document.body).trigger("dataload.exhibit");
     });
+
+
 
     $(document).bind("dataload.exhibit", function() {
         Exhibit.create = function(database) {
