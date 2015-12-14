@@ -14,10 +14,10 @@
         jQuery('head').append('<link href="http://area47mil.educa.aragon.es/w/index.php?title=Especial:CargoExport&tables=NRecursosDB%2CCentrosDB&join+on=NRecursosDB.centros+HOLDS+CentrosDB.ccentro&fields=titularidad%3Dtit%2C+ddencor%3Dtipo%2Cdprov%3Dprov%2Cdenom%3Dlabel%2C%22cen%22%3Dtype%2Cccentro%3Did%2Cdmunic%3Dlocalidad%2C+coord__full%3Dcoord&&group+by=ccentro&limit=1000&format=csv" type="text/csv" rel="exhibit/data" data-ex-has-column-titles="true">');
 
         jQuery('head').append('<link href="http://area47mil.educa.aragon.es/w/index.php?title=Especial:CargoExport&tables=NRecursosDB&&fields=titulo%3Dlabel%2C%22rec%22%3Dtype%2Clink%2Ccprog%3Dcpro%2Cmetodologia%2Cdescripcion%2Cmas%2Cwebproyecto%2Ccompetencias%2Cresponsables%2Ccontacto%2Clineas%2CREPLACE%28REPLACE%28institucional%2C+0%2C+%22No+institucional%22%29%2C+1%2C+%22Institucional%22%29%3Dinstitucional%2C_pageID%3Dpagina%2Ccentros&&limit=1000&format=csv" type="text/csv" rel="exhibit/data" data-ex-has-column-titles="true" data-ex-value-separator=";">');
-        jQuery('head').append('<link href="datosp.json" type="application/json" rel="exhibit-data">');
 
-        jQuery('head').append('<link href="tiposp.json" type="application/json" rel="exhibit-data">');
-        jQuery('head').append('<link href="schema.json" type="application/json" rel="exhibit-data">');
+        jQuery('head').append('<link href="http://area47mil.educa.aragon.es/w/extensions/area47mil/datosp.json" type="application/json" rel="exhibit-data">');
+        jQuery('head').append('<link href="http://area47mil.educa.aragon.es/w/extensions/area47mil/tiposp.json" type="application/json" rel="exhibit-data">');
+        jQuery('head').append('<link href="http://area47mil.educa.aragon.es/w/extensions/area47mil/schema.json" type="application/json" rel="exhibit-data">');
 
          jQuery('head').append('<link rel="exhibit-extension" href="//api.simile-widgets.org/exhibit/HEAD/extensions/map/map-extension.js" />');
 
